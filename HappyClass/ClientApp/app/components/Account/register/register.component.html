@@ -1,0 +1,121 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" style="height:100%;">
+  <mat-card>
+    <mat-card-content>
+
+      <h3>Create your account</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="full-width" style="margin-top:4em;" (keydown.enter)="$event.preventDefault()">
+        <div fxLayout="row wrap">
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Firstname" maxlength="100"
+                   formControlName="firstname" required AlphabetsOnly="true">
+            <mat-error>
+              <control-messages [control]="form.controls.firstname"></control-messages>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Lastname" maxlength="100"
+                   formControlName="lastname" AlphabetsOnly="true">
+            <mat-error>
+              <control-messages [control]="form.controls.lastname"></control-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap">
+          <mat-form-field fxFlex>
+            <input matInput placeholder="email" maxlength="100"
+                   formControlName="email" required>
+            <mat-error>
+              <control-messages [control]="form.controls.email"></control-messages>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Mobile number" maxlength="10" NumbersOnly="true"
+                   formControlName="MobileNumber" required>
+            <mat-error>
+              <control-messages [control]="form.controls.MobileNumber"></control-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap">
+          <mat-form-field fxFlex>
+            <input matInput type="password" placeholder="Password"
+                   formControlName="password" required>
+            <mat-error>
+              <control-messages [control]="form.controls.password"></control-messages>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input matInput type="password" placeholder="Confirm Password"
+                   formControlName="confirmPassword" required>
+            <mat-error>
+              <control-messages [control]="form.controls.confirmPassword"></control-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--<p>Form value: {{ form.value | json }}</p>
+        <p>{{isFieldInvalid('required')}}</p>
+        <p>Form value: {{ form.status | json }}</p>-->
+        <div fxLayout="row" fxLayoutAlign="center center" style="min-height:20px;margin:1em 1em;">
+          <mat-error *ngIf="ErrorMessages && ErrorMessages.length > 0">
+            {{ErrorMessages[0]}}
+          </mat-error>
+          <mat-error *ngIf="showPasswordReset"><span>Email already registered <a href="#">Click Here</a> to reset password </span>  </mat-error>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxLayoutAlign="start center">
+            <button mat-button color="primary" (click)="router.navigate(['/account/login'])">
+              Sign in instead
+            </button>
+          </div>
+          <div fxFlex>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="end center">
+            <!--[disabled]="!form.valid && form.dirty"-->
+            <button mat-raised-button color="primary" type="submit">Create Account</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(1)">success</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(2)">error</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(3)">warn</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(4)">confirm</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(5)">inform</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(6)">load</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(7)">loadmessd</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(8)">load8</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(7)">load9</button>
+            <button mat-raised-button color="primary" (click)="onSubmit2(7)">loadm10</button>
+          </div>
+        </div>
+      </form>
+
+      <div fxLayout="column wrap" *ngIf="false">
+        <div>
+          <br />
+          <h1>File Upload Using Angular 5 and ASP.NET Core 2.1</h1>
+          <input #file type="file" multiple (change)="upload(file.files)" />
+          <br />
+          <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+            {{progress}}%
+          </span>
+          <span style="font-weight:bold;color:green;" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+
+        <div>
+
+
+          <label for="singleFile">Upload file</label>
+          <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" />
+          <br>
+
+          <mat-file-upload-queue #fileUploadQueue
+                                 [fileAlias]="'file'"
+                                 [httpUrl]="'http://localhost:52112/Account/UploadFile2'">
+
+            <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+          </mat-file-upload-queue>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

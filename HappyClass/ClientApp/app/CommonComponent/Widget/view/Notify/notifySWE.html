@@ -1,0 +1,51 @@
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div>-->
+<!--<mat-card class="example-card">
+    <mat-card-header [style.background-color]="__NotifyColor" [style.color]="'white'" [style.margin]="'0px -24px'">
+        <div mat-card-avatar class="example-header-image">
+            <mat-icon class="example-icon">{{__NotifyIcon}}</mat-icon>
+        </div>
+        {{__NotifyTitle}}
+    </mat-card-header>
+    <mat-card-content [style.margin]="'40px'">
+        <p style="padding-top:10px;">
+            {{__NotifyMessage}}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button color="primary" *ngFor="let btn of __NotificationButtonList" (click)="btn.callBackFunction(this)">
+            {{btn.buttonText}}
+        </button>
+    </mat-card-actions>
+</mat-card>-->
+
+<div fxLayout="column wrap" class="notify">
+    <div mat-dialog-title fxLayout="row wrap" fxLayoutAlign="center start" [style.background]="__NotifyColor" class="notify-title">
+        <div fxLayout.xs="column wrap" fxLayout="row wrap">
+            <div fxFlexAlign="center" style="margin-right:30px;">
+                <mat-icon class="notify-icon">{{__NotifyIcon}}</mat-icon>
+            </div>
+            <h2 fxFlexAlign="center">
+                {{__NotifyTitle}}
+            </h2>
+        </div>
+        <mat-icon ngClass.xs="notify-iconBG-xs" ngClass="notify-iconBG">{{__NotifyIcon}}</mat-icon>
+    </div>
+    <div class="notify-content">
+        <p>{{__NotifyMessage}}jlkasjdlka sjdklajs dklajsd kaldj adl kdjadkl sajdsa lkdsajdask dlajdaskld sadjl;jal; sjdlas d </p>
+    </div>
+    <div mat-dialog-actions fxLayoutAlign="end" class="notify-actions">
+        <button mat-button color="primary" *ngFor="let btn of __NotificationButtonList" cdkFocusInitial [mat-dialog-close]="btn.returnData">
+            {{btn.buttonText}}
+        </button>
+    </div>
+</div>

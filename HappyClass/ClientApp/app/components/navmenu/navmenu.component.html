@@ -1,0 +1,74 @@
+<!--<a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>-->
+<!--<a mat-list-item [routerLink]="['/home']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">dashboard</mat-icon> Home
+</a>
+<a mat-list-item [routerLink]="['/counter']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">favorite_outline</mat-icon> Counter
+</a>
+<a mat-list-item [routerLink]="['/fetch-data']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">list</mat-icon> Fetch data
+</a>
+<a mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">lock_outline</mat-icon> Login
+</a>
+<a mat-list-item [routerLink]="['/']">
+    <mat-icon class="example-icon">lock_outline</mat-icon>Pure Login
+</a>
+<a mat-list-item [routerLink]="['/account/register']">
+    <mat-icon class="example-icon">lock_outline</mat-icon>Pure Register
+</a>-->
+
+<!--<div @list class="list-container">
+  <div @items class="box" *ngFor="let item of [1,2,3,4]; let i=index;">{{i}}</div>
+</div>-->
+
+<mat-nav-list [@list]>
+  <a [@items] mat-list-item [routerLink]="['/home']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">dashboard</mat-icon> Home
+  </a>
+  <a [@items] mat-list-item [routerLink]="['/counter']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">favorite_outline</mat-icon> Counter
+  </a>
+  <a [@items] mat-list-item [routerLink]="['/fetch-data']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">list</mat-icon> Fetch data
+  </a>
+  <a [@items] mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link">
+    <mat-icon class="example-icon">lock_outline</mat-icon> Login
+  </a>
+  <a [@items] mat-list-item [routerLink]="['/']">
+    <mat-icon class="example-icon">lock_outline</mat-icon>Pure Login
+  </a>
+  <a [@items] mat-list-item [routerLink]="['/account/register']">
+    <mat-icon class="example-icon">lock_outline</mat-icon>Pure Register
+  </a>
+  <mat-accordion [@items] class="app-navigation">
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header expandedHeight="48px">
+        1 title
+      </mat-expansion-panel-header>
+      <a mat-list-item [routerLink]="['/account/register']" routerLinkActive="active-link"> link 2 </a>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false" class="mat-elevation-z0">
+      <mat-expansion-panel-header expandedHeight="48px">
+        2 title
+      </mat-expansion-panel-header>
+      <a mat-list-item [routerLink]="['/account/register']" routerLinkActive="active-link">
+        <mat-icon class="example-icon">lock_outline</mat-icon>Pure Register
+      </a>
+      <a mat-list-item [routerLink]="['/account/register']" routerLinkActive="active-link"> link 22 </a>
+      <a mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link"> link 22 </a>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false" class="mat-elevation-z0">
+      <mat-expansion-panel-header expandedHeight="48px">
+        3 title
+      </mat-expansion-panel-header>
+      <a mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link"> link 2 </a>
+      <a mat-list-item [routerLink]="['/counter']" routerLinkActive="active-link"> link 22 </a>
+      <a mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link"> link 22 </a>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <a [@items] mat-list-item [routerLink]="['/app-login']" routerLinkActive="active-link"> link 44 </a>
+</mat-nav-list>

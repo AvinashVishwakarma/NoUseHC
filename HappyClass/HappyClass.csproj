@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\appAnimation\fadeAnimation.ts" />
+    <None Remove="ClientApp\app\Directives\slimscroll.directive.ts" />
+    <None Remove="ClientApp\app\Services\ConfigurationService.ts" />
+    <None Remove="ClientApp\globalVarable.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
+    <ProjectReference Include="..\DataEntities\DataEntities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\appAnimation\fadeAnimation.ts" />
+    <TypeScriptCompile Include="ClientApp\app\Directives\slimscroll.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\app\Services\ConfigurationService.ts" />
+    <TypeScriptCompile Include="ClientApp\globalVarable.ts" />
+  </ItemGroup>
+
+</Project>
