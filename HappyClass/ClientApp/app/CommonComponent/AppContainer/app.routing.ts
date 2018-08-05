@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule, RouterLinkActive } from '@angular/router';
 import { FullLayoutComponent } from './FullLayout/full-layout.component';
 import { SimpleLayoutComponent } from './SimpleLayout/simple-layout.component';
@@ -7,6 +7,7 @@ import { HomeComponent } from '../../components/home/home.component';
 import { CounterComponent } from '../../components/counter/counter.component';
 import { FetchDataComponent } from '../../components/fetchdata/fetchdata.component';
 import { RegisterComponent } from '../../components/Account/register/register.component';
+import { ResetPasswordComponent } from '../../components/Account/resetPassword/resetPassword.component';
 
 // Import Containers
 
@@ -37,6 +38,10 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent
+            },
+            {
+              path: 'reset',
+              component: ResetPasswordComponent
             }
         ]
     },
@@ -51,6 +56,7 @@ export const routes: Routes = [
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'app-login', component: LoginComponent },
+            { path: 'reset', component: ResetPasswordComponent },
             { path: '**', redirectTo: 'home' }
         ]
     }

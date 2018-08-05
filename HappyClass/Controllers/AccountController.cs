@@ -25,9 +25,11 @@ namespace HappyClasses.Controllers
 {
   public class AccountController : HCBaseController
   {
+    private AccountManager accountManager;
     public AccountController(IConfiguration configuration)
         : base(configuration)
     {
+      accountManager = new AccountManager();
     }
 
     private IActionResult Index()
@@ -72,7 +74,7 @@ namespace HappyClasses.Controllers
     [HttpPost]
     //[AllowAnonymous]
     //[ValidateAntiForgeryToken]
-    private ActionResult Login(LoginViewModel model, string returnUrl)
+    private async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
     {
       ViewBag.ErrorMessage = "";
       if (!ModelState.IsValid)
@@ -115,13 +117,11 @@ namespace HappyClasses.Controllers
 
         ///////////////security owin ///////////////
 
-        List<ccClaim> claims = GetClaims(userModel, ipAddress); //Get the claims from the headers or db or your user store
-        if (null != claims)
+        if (await SetClaimsAndSignIn(userModel, ipAddress))
         {
-          SignIn(claims);
           return RedirectToLocal(returnUrl);
         }
-
+        
       }
       else
       {
@@ -149,33 +149,6 @@ namespace HappyClasses.Controllers
       //}
     }
 
-    private List<ccClaim> GetClaims(UserModel user, string ipAddress)
-    {
-      var claims = new List<ccClaim>();
-      claims.Add(new ccClaim(ClaimTypes.Email, user.Email));
-      claims.Add(new ccClaim(ccIdentity.IPClaimType, ipAddress));
-      claims.Add(new ccClaim(ccIdentity.IdClaimType, user.UserId.ToString()));
-      claims.Add(new ccClaim(ClaimTypes.Name, user.FirstName));
-      claims.Add(new ccClaim(ClaimTypes.Surname, user.LastName));
-      claims.Add(new ccClaim(ClaimTypes.Gender, user.Gender));
-      claims.Add(new ccClaim(ClaimTypes.MobilePhone, user.MobileNumber));
-      claims.Add(new ccClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", user.UserId.ToString()));
-      claims.Add(new ccClaim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", user.Email));
-
-
-      var roles = new[] { "Admin", "Citizin", "Worker" };
-      var groups = new[] { "Admin", "Citizin", "Worker" };
-
-      foreach (var item in roles)
-      {
-        claims.Add(new ccClaim(ccIdentity.RolesClaimType, item));
-      }
-      foreach (var item in groups)
-      {
-        claims.Add(new ccClaim(ccIdentity.GroupClaimType, item));
-      }
-      return claims;
-    }
 
     private ActionResult RedirectToLocal(string returnUrl)
     {
@@ -203,10 +176,9 @@ namespace HappyClasses.Controllers
 
     [HttpPost]
     [ModelValidationFilter]
-    public JsonResult Login2([FromBody]LoginViewModel model, string returnUrl)
+    public async Task<JsonResult> Login2([FromBody]LoginViewModel model, string returnUrl)
     {
-      var msg = new LoginMessage();
-      msg.Errormessage = new List<string>();
+      var msg = new ResponseMessage();
       if (!ModelState.IsValid)
       {
         msg.Errormessage.Add("Not valid email");
@@ -224,14 +196,11 @@ namespace HappyClasses.Controllers
       var userModel = objAM.ValidateUser(model.Email, model.Password, ipAddress, DateTime.Now);
       if (userModel != null && userModel.UserId > 0)
       {
-        List<ccClaim> claims = GetClaims(userModel, ipAddress); //Get the claims from the headers or db or your user store
-        if (null != claims)
+        if (await SetClaimsAndSignIn(userModel, ipAddress))
         {
-          SignIn(claims);
           msg.IsSuccess = true;
           return Json(msg);
         }
-
       }
       else
       {
@@ -251,10 +220,27 @@ namespace HappyClasses.Controllers
 
     public JsonResult ChangePassword([FromBody] ChangePasswordViewModel model)
     {
+      var msg = new ResponseMessage();
+      int result = 0;
       if (ModelState.IsValid)
       {
+        if (model.Password == model.CurrentPassword)
+          msg.Errormessage.Add("New password and current password should not be same.");
+        else
+        {
+          result = accountManager.ChangeUserPassword(GetUserId(), model.CurrentPassword, model.Password);
+          if (result <= 0)
+          {
+            msg.Errormessage.Add(((CCAppError)result).ToDescriptionString());
+          }
+          else
+          {
+            msg.IsSuccess = true;
+            msg.Result = result;
+          }
+        }
       }
-      return Json("");
+      return Json(msg);
     }
 
     [HttpPost("UploadFiles")]

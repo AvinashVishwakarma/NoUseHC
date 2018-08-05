@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace DataEntities
 {
@@ -22,6 +24,16 @@ namespace DataEntities
         Female = 2,
     }
 
+    public enum CCAppError
+    {
+        SomeError = 0,
+        [Description("Current password is not correct.")]
+        InvalidCurrentPassword = -1,
+        [Description("New password should not match with last 2 password.")]
+        NewPasswordMatchWithOldPassword = -2,
+
+    }
+
     //public enum RoleType
     //{
     //    None = 0,
@@ -30,4 +42,14 @@ namespace DataEntities
     //    Faculty = 3,
     //    Student = 4,
     //}
+
+
+    public static class CCAppErrorExtension
+    {
+        public static string ToDescriptionString(this CCAppError val)
+        {
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return attributes.Length > 0 ? ((DescriptionAttribute)attributes[0]).Description : string.Empty;
+        }
+    }
 }

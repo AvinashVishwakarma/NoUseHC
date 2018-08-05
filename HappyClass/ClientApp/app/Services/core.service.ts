@@ -13,7 +13,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CoreService {
-
   constructor(protected _http: HttpClient, @Inject('BASE_URL') protected baseUrl: string) {
   }
 
@@ -53,9 +52,15 @@ export class CoreService {
   }
 
   //Error handle function
-  private errorHandler(error: Response) {
-    console.log(error);
-    return Observable.throw(error);
+  private errorHandler = (errorResponse: any) => {
+    console.log(errorResponse);
+    //if (errorResponse.status == 422) {
+    //  let errorMessage: string = "";
+    //  for (let error of errorResponse.error.errors) {
+    //    errorMessage = " " + errorMessage + error.message;
+    //  }
+    //}
+    return Observable.throw(errorResponse);
   }
 
   private getServiceURL(serviceUrl: string) {

@@ -30,6 +30,7 @@ import { DialogHelper, NotifyDialog, ProgressDialog } from './CommonComponent/Wi
 //import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FileUploadService } from './Services/FileUploadService';
 import { AlphabetsOnlyDirective } from './Directives/Common/AlphabetOnlyDirective';
+import { ResetPasswordComponent } from './components/Account/resetPassword/resetPassword.component';
 
 const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
 
@@ -42,6 +43,7 @@ const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    ResetPasswordComponent,
     ControlMessagesComponent,
     AppContainers,
     NumbersOnlyDirective,
