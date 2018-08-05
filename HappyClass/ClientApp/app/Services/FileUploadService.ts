@@ -1,10 +1,9 @@
-﻿import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Response } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { Observable } from "rxjs";
+import { map, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from "@angular/common/http";
+import { CoreService } from "./core.service";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -13,12 +12,12 @@ const httpOptions = {
 };
 
 @Injectable()
-export class FileUploadService {
+export class FileUploadService extends CoreService {
 
     NoData: any = null;
-    constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-
-    }
+    //constructor(private _http2: HttpClient, @Inject('BASE_URL') private baseUrl2: string) {
+    //  //super(_http, baseUrl);
+    //}
 
     UploadFiles(serviceUrl: string, files: any): Observable<HttpEvent<any>> {
         debugger;
@@ -36,23 +35,5 @@ export class FileUploadService {
 
     Register(userData: any) {
         return this.doPostCall('Account/SignUp', userData);
-    }
-
-    private doPostCall(serviceUrl: string, data: any) {
-        return this._http.post(this.baseUrl + serviceUrl, data, httpOptions)//, { observe: 'response' }
-            .map((response: any) => response)
-            .catch(this.errorHandler);
-    }
-
-    private doGetCall(serviceUrl: string) {
-        return this._http.get(this.baseUrl + serviceUrl, httpOptions)
-            .map((response: any) => response)
-            .catch(this.errorHandler);
-    }
-
-    //Error handle function
-    errorHandler(error: Response) {
-        console.log(error);
-        return Observable.throw(error);
     }
 }

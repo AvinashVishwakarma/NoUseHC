@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { AccountServicce } from '../../../Services/AccountService';
 import { HttpRequest, HttpHandler, HttpClient, HttpInterceptor, HttpUserEvent, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw'
+import { Observable } from 'rxjs';
+//import 'rxjs/add/operator/map';
+//import 'rxjs/add/operator/catch';
+//import 'rxjs/add/observable/throw'
 
 @Component({
     selector: 'app-login',

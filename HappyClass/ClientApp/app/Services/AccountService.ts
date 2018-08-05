@@ -1,11 +1,13 @@
 import { Injectable, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Response } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { Observable } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/observable/throw';
 import { HttpHeaders } from "@angular/common/http";
+import { CoreService } from "./core.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,12 +16,12 @@ const httpOptions = {
 };
 
 @Injectable()
-export class AccountServicce {
+export class AccountServicce extends CoreService {
 
   NoData: any = null;
-  constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-
-  }
+  //constructor(private _http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  //  super(_http, baseUrl);
+  //}
 
   Register(userData: any) {
     return this.doPostCall('Account/SignUp', userData);
@@ -41,21 +43,4 @@ export class AccountServicce {
     return this.doPostCall('Account/GetUserDetail', this.NoData);
   }
 
-  private doPostCall(serviceUrl: string, data: any) {
-    return this._http.post(this.baseUrl + serviceUrl, data, httpOptions)//, { observe: 'response' }
-      .map((response: any) => response)
-      .catch(this.errorHandler);
-  }
-
-  private doGetCall(serviceUrl: string) {
-    return this._http.get(this.baseUrl + serviceUrl, httpOptions)
-      .map((response: any) => response)
-      .catch(this.errorHandler);
-  }
-
-  //Error handle function
-  errorHandler(error: Response) {
-    console.log(error);
-    return Observable.throw(error);
-  }
 }

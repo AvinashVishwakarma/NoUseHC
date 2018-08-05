@@ -4,7 +4,7 @@ import { ValidationService } from '../../../CommonComponent/Validation/validatio
 import { Router } from '@angular/router';
 import { AccountServicce } from '../../../Services/AccountService';
 import { DialogHelper } from '../../../CommonComponent/Widget/CommonHelper';
-import { MatFileUpload } from 'angular-material-fileupload';
+//import { MatFileUpload } from 'angular-material-fileupload';
 import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 import { FileUploadService } from '../../../Services/FileUploadService';
 import { HttpSentEvent } from '@angular/common/http/src/response';

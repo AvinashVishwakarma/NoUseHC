@@ -10,7 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { LoginComponent } from './components/Account/login/login.component';
-import { materialize } from 'rxjs/operator/materialize';
+//import { materialize } from 'rxjs/operator/materialize';
 import { MaterialModule } from './material.module';
 import { ControlMessagesComponent } from './CommonComponent/Validation/control-messageComponent';
 import { FullLayoutComponent } from './CommonComponent/AppContainer/FullLayout/full-layout.component';
@@ -27,7 +27,7 @@ import { NumbersOnlyDirective } from './Directives/Common/NumberOnlyDirective';
 import { AccountServicce } from './Services/AccountService';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogHelper, NotifyDialog, ProgressDialog } from './CommonComponent/Widget/CommonHelper';
-import { MatFileUploadModule } from 'angular-material-fileupload';
+//import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FileUploadService } from './Services/FileUploadService';
 import { AlphabetsOnlyDirective } from './Directives/Common/AlphabetOnlyDirective';
 
@@ -59,7 +59,7 @@ const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
     MaterialModule,
     AppRoutingModule,
     //NgSlimScrollModule,
-    MatFileUploadModule,
+    //MatFileUploadModule,
   ],
   entryComponents: [
     NotifyDialog,

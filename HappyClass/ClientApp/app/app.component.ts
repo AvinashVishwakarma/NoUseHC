@@ -20,7 +20,12 @@ export class AppComponent {
     let authCookie = cookie.get('CookieAppAuthencticated');
     if (authCookie && authCookie.length > 0) {
       //alert('scucces');
-      this.router.navigate(['/home']);
+      if (GlobalVariable.userActive)
+        this.router.navigate(['/home']);
+      else {
+        cookie.delete('CookieAppAuthencticated');
+        this.router.navigate(['']);
+      }
     }
   }
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/observable/of';
+import { Observable, of, empty } from 'rxjs';
+// import 'rxjs/add/operator/delay';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/observable/empty';
+// import 'rxjs/add/observable/of';
+import { catchError } from 'rxjs/operators';
 
 export function configurationServiceInitializerFactory(configurationService: ConfigService): Function {
   // a lambda is required here, otherwise `this` won't work inside ConfigurationService::load
@@ -29,20 +30,21 @@ export class ConfigService {
   public load(): Promise<any> {
     debugger;
     if (this.loaded) {
-      return Observable.of(this, this.configuration).toPromise();
+      return of(this, this.configuration).toPromise();
     } else {
       const configurationObservable = this.http.post('Account/GetUserDetail', null); // path is relative to that for app's index.html
       configurationObservable
-        .catch(error => {
-          console.log(`error loading configuration: ${JSON.stringify(error)}`);
-          return Observable.empty();
-        })
+        .pipe(
+          catchError(error => {
+            console.log(`error loading configuration: ${JSON.stringify(error)}`);
+            return empty();
+          })
+        )
         .subscribe(config => {
           this.configuration = config;
           console.log(`got configuration: ${JSON.stringify(this.configuration)}`);
           this.loaded = true;
-        }
-        );
+        });
       return configurationObservable.toPromise();
     }
   }

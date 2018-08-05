@@ -6,22 +6,22 @@
                 <input type="hidden" name="returnUrl" value="" />
                 <input type="hidden" name="RememberMe" value="false" />
                 <div fxLayout="row wrap">
-                    <mat-input-container fxFlex>
+                    <mat-form-field fxFlex>
                         <input matInput placeholder="Email" maxlength="100"
                                formControlName="Email" required>
                         <mat-error>
                             <control-messages [control]="form.controls.userName"></control-messages>
                         </mat-error>
-                    </mat-input-container>
+                    </mat-form-field>
                 </div>
                 <div fxLayout="row wrap">
-                    <mat-input-container fxFlex>
+                    <mat-form-field fxFlex>
                         <input matInput type="password" placeholder="Password"
                                formControlName="Password" required>
                         <mat-error>
                             <control-messages [control]="form.controls.password"></control-messages>
                         </mat-error>
-                    </mat-input-container>
+                    </mat-form-field>
                 </div>
                 <div fxLayout="row" style="margin:1em 1em 2em 0em;">
                     <button mat-button color="primary" (click)="router.navigate(['/account/register'])" style="line-height:0em;color:blue;">

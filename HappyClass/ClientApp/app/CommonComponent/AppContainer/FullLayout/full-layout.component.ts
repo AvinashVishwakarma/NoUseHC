@@ -4,7 +4,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { AccountServicce } from '../../../Services/AccountService';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import 'rxjs/add/observable/fromEvent';
+// import 'rxjs/add/observable/fromEvent';
 import { fadeAnimation, leftAnimation, listItemAnimation, animateList } from '../../../appAnimation/fadeAnimation';
 
 @Component({
