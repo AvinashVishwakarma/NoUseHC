@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\appAnimation\fadeAnimation.ts" />
+    <None Remove="ClientApp\app\AppSetting.ts" />
+    <None Remove="ClientApp\app\components\core.componentService.ts" />
     <None Remove="ClientApp\app\Directives\slimscroll.directive.ts" />
     <None Remove="ClientApp\app\Services\ConfigurationService.ts" />
     <None Remove="ClientApp\globalVarable.ts" />
@@ -27,6 +29,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\appAnimation\fadeAnimation.ts" />
+    <TypeScriptCompile Include="ClientApp\app\AppSetting.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\core.componentService.ts" />
     <TypeScriptCompile Include="ClientApp\app\Directives\slimscroll.directive.ts" />
     <TypeScriptCompile Include="ClientApp\app\Services\ConfigurationService.ts" />
     <TypeScriptCompile Include="ClientApp\globalVarable.ts" />

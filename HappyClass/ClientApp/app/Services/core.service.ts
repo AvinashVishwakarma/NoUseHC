@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AppSetting } from '../AppSetting';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,12 +13,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CoreService {
-  constructor(protected _http: HttpClient, @Inject('BASE_URL') protected baseUrl: string) {
+export abstract class CoreService {
+  constructor(protected _http: HttpClient) {
   }
 
   protected doPostCall(serviceUrl: string, data: any) {
-    return this._http.post(this.baseUrl + serviceUrl, data, httpOptions)//, { observe: 'response' }
+    return this._http.post(this.getServiceURL(serviceUrl), data, httpOptions)//, { observe: 'response' }
       .pipe(
         map((response: any) => response),
         catchError(this.errorHandler)
@@ -25,7 +26,7 @@ export class CoreService {
   }
 
   protected doPutCall(serviceUrl: string, data: any) {
-    return this._http.put(this.baseUrl + serviceUrl, data, httpOptions)
+    return this._http.put(this.getServiceURL(serviceUrl), data, httpOptions)
       .pipe
       (
       map((response: any) => response),
@@ -34,7 +35,7 @@ export class CoreService {
   }
 
   protected doDeleteCall(serviceUrl: string) {
-    return this._http.delete(this.baseUrl + serviceUrl, httpOptions)
+    return this._http.delete(this.getServiceURL(serviceUrl), httpOptions)
       .pipe
       (
       map((response: any) => response),
@@ -43,7 +44,7 @@ export class CoreService {
   }
 
   protected doGetCall(serviceUrl: string) {
-    return this._http.get(this.baseUrl + serviceUrl, httpOptions)
+    return this._http.get(this.getServiceURL(serviceUrl), httpOptions)
       .pipe
       (
       map((response: any) => response),
@@ -64,6 +65,6 @@ export class CoreService {
   }
 
   private getServiceURL(serviceUrl: string) {
-    return this.baseUrl + serviceUrl;
+    return AppSetting.baseURL + serviceUrl;
   }
 }

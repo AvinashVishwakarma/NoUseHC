@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace Microsoft.AspNetCore.Mvc
         public static string EmailConfirmationLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
         {
             return urlHelper.Action(
-                action: nameof(AccountController.Login2),
+                action: nameof(AccountController.Login),
                 controller: "Account",
                 values: new { userId, code },
                 protocol: scheme);
@@ -20,7 +20,7 @@ namespace Microsoft.AspNetCore.Mvc
         public static string ResetPasswordCallbackLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
         {
             return urlHelper.Action(
-                action: nameof(AccountController.Login2),
+                action: nameof(AccountController.Login),
                 controller: "Account",
                 values: new { userId, code },
                 protocol: scheme);

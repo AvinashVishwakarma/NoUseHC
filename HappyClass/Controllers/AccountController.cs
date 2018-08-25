@@ -49,6 +49,7 @@ namespace HappyClasses.Controllers
     [ValidateAntiForgeryToken]
     public ActionResult SignUp([FromBody] SignUpViewModel model)
     {
+      ResponseMessage responseMessage = new ResponseMessage();
       int result = 0;
       if (ModelState.IsValid)
       {
@@ -61,95 +62,22 @@ namespace HappyClasses.Controllers
         objUM.UserType = UserType.Registered;
         AccountManager objAM = new AccountManager();
         result = objAM.RegisterUser(objUM);
-
         if (result > 0)
         {
-          return Json(result);
+          LoginViewModel loginModel = new LoginViewModel();
+          loginModel.Email = objUM.Email;
+          loginModel.Password = objUM.Password;
+          return RedirectToAction("Login", "Account", new { model = loginModel });
+          //return Json(result);
         }
-      }
-      return Json(result);
-    }
-
-    //[ExceptionFilter]
-    [HttpPost]
-    //[AllowAnonymous]
-    //[ValidateAntiForgeryToken]
-    private async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-    {
-      ViewBag.ErrorMessage = "";
-      if (!ModelState.IsValid)
-      {
-        return View(model);
-      }
-      model.Email = model.Email.Trim();
-      AccountManager objAM = new AccountManager();
-      //string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-      string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-      if (string.IsNullOrEmpty(ipAddress))
-      {
-        //ipAddress = Request.ServerVariables["REMOTE_ADDR"];
-        ipAddress = Request.HttpContext.Connection.LocalIpAddress.ToString();
-      }
-      var userModel = objAM.ValidateUser(model.Email, model.Password, ipAddress, DateTime.Now);
-      if (userModel != null && userModel.UserId > 0)
-      {
-        //FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
-        //if (model.RememberMe)
-        //{
-        //    //check if cookie exists
-        //    HttpCookie existingUserCookie = Request.Cookies[model.Email];
-
-        //    if (existingUserCookie != null)
-        //    {
-        //        existingUserCookie.Value = model.Email;
-        //        existingUserCookie.Expires = DateTime.Now.AddHours(-20);
-        //    }
-
-        //    //create new cookie
-        //    HttpCookie newCookie = new HttpCookie(model.Email, Common.ToBase64(model.Password));
-        //    newCookie.Expires = DateTime.Now.AddHours(12);
-        //}
-        //GenericIdentity a = new GenericIdentity(model.Email);
-        //System.Web.HttpContext.Current.User = new GenericPrincipal(a, null);
-        //Session["User"] = userModel;
-        //return RedirectToLocal(returnUrl);
-
-        ///////////////security owin ///////////////
-
-        if (await SetClaimsAndSignIn(userModel, ipAddress))
+        else
         {
-          return RedirectToLocal(returnUrl);
+          responseMessage.Result = result;
         }
-        
       }
-      else
-      {
-        ViewBag.ErrorMessage = "Invalid username or password.";
-        ModelState.AddModelError("", "Invalid username or password.");
-      }
-      return View(model);
-
-      // This doesn't count login failures towards account lockout
-      // To enable password failures to trigger account lockout, change to shouldLockout: true
-
-      //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-      //switch (result)
-      //{
-      //    case SignInStatus.Success:
-      //        return RedirectToLocal(returnUrl);
-      //    case SignInStatus.LockedOut:
-      //        return View("Lockout");
-      //    case SignInStatus.RequiresVerification:
-      //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-      //    case SignInStatus.Failure:
-      //    default:
-      //        ModelState.AddModelError("", "Invalid login attempt.");
-      //        return View(model);
-      //}
+      return Json(responseMessage);
     }
-
-
+    
     private ActionResult RedirectToLocal(string returnUrl)
     {
       if (Url.IsLocalUrl(returnUrl))
@@ -176,7 +104,7 @@ namespace HappyClasses.Controllers
 
     [HttpPost]
     [ModelValidationFilter]
-    public async Task<JsonResult> Login2([FromBody]LoginViewModel model, string returnUrl)
+    public async Task<JsonResult> Login([FromBody]LoginViewModel model, string returnUrl)
     {
       var msg = new ResponseMessage();
       if (!ModelState.IsValid)

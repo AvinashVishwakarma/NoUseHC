@@ -8,4 +8,5 @@ import { fadeAnimation, listItemAnimation, animateList } from '../../appAnimatio
   animations: [fadeAnimation, animateList, listItemAnimation]
 })
 export class NavMenuComponent {
+  panelOpenState: any = false;
 }

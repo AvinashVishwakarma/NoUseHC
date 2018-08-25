@@ -19,11 +19,8 @@ export class ResetPasswordComponent implements OnInit {
   form: FormGroup;                    // {1}
   private formSubmitAttempt: boolean; // {2}
   public ErrorMessages: any;
-  private baseURL: string;
   constructor(private router: Router,
-    private fb: FormBuilder, public http: HttpClient, @Inject('BASE_URL') baseUrl: string
-    , private accountService: AccountServicce, private dh: DialogHelper) {
-    this.baseURL = baseUrl;
+    private fb: FormBuilder, public http: HttpClient, private accountService: AccountServicce, private dh: DialogHelper) {
     //this.http = Http;
   }
 
@@ -60,8 +57,6 @@ export class ResetPasswordComponent implements OnInit {
             if (result.isSuccess) {
               this.dh.success("Password changed successfully");
               this.router.navigate(['/home']);
-              //location.href = this.baseURL;
-              //location.reload();
             }
             else {
               this.dh.error(result.errormessage[0]);

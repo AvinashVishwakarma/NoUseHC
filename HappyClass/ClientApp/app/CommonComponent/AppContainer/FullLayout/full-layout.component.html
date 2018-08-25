@@ -9,75 +9,81 @@
     </div>
 </div>-->
 
-<div class="example-container" [ngClass]="{'unicorn-dark-theme': false}" [class.example-is-mobile]="mobileQuery.matches">
-    <mat-toolbar color="primary" class="example-toolbar">
-        <button mat-icon-button mat-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <div fxLayout="row" fxFlex="100%" fxLayoutAlign="start center">
-                    <div fxFlex fxHide.xs>
-                        <span>Matrial line</span>
-                        <span class="example-spacer"></span>
-                    </div>
-                    <!--<div fxFlex fxHide.xs fxHide.lg fxHide.md>
-                        <span>ML</span>
-                        <span class="example-spacer"></span>
-                    </div>-->
-                    <div fxFlex="90">
-                        <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center">
-                            <button mat-icon-button>
-                                <mat-icon aria-label="search icon">search</mat-icon>
-                            </button>
-                            <mat-form-field color="accent" [ngClass]="{'widthMax' : searchExpanded }">
-                                <input matInput type="text" [(ngModel)]="value" (blur)="toggleSearchWidth($event)"
-                                       (focus)="searchExpanded = true;" autocomplete="off" />
-                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; searchExpanded = false; return ;">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div fxFlex>
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon aria-label="search icon">more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Account</button>
-                            <button mat-menu-item (click)="SignOutUser($event)">Sign out</button>
-                        </mat-menu>
-                    </div>
-                </div>
-            </mat-toolbar-row>
-        </mat-toolbar>
-    </mat-toolbar>
-
-    <mat-sidenav-container class="example-sidenav-container"
-                           [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [opened]="mobileQuery.matches ? 'false' : 'true'" class="mat-elevation-z20"
-                     [mode]="mobileQuery.matches ? 'over' : 'side'"
-                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" style="overflow: hidden;"> <!--style="overflow: hidden;"-->
-            <div slimScroll width="auto" height="100%" size="5px" alwaysVisible="true" borderRadius="1px" style="min-width:200px;"><!--slimScroll [options]="opts2"-->
-                <!--<mat-nav-list>
-                    <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
-                    <nav-menu></nav-menu>
-                </mat-nav-list>-->
-                <!--<mat-nav-list>
-                    <a mat-list-item routerLink=".">somete</a>
-                    <nav-menu></nav-menu>
-                </mat-nav-list>-->
-                <nav-menu></nav-menu>
+<div class="example-container" [ngClass]="{'unicorn-dark-theme': false}"><!-- [class.example-is-mobile]="mobileQuery.matches"-->
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button mat-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <div fxLayout="row" fxFlex="100%" fxLayoutAlign="start center">
+          <div fxFlex fxHide.xs>
+            <span>Matrial line</span>
+            <span class="example-spacer"></span>
+          </div>
+          <!--<div fxFlex fxHide.xs fxHide.lg fxHide.md>
+              <span>ML</span>
+              <span class="example-spacer"></span>
+          </div>-->
+          <div fxFlex="90">
+            <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center">
+              <button mat-icon-button>
+                <mat-icon aria-label="search icon">search</mat-icon>
+              </button>
+              <mat-form-field color="accent" [ngClass]="{'widthMax' : searchExpanded }">
+                <input matInput type="text" [(ngModel)]="value" (blur)="toggleSearchWidth($event)"
+                       (focus)="searchExpanded = true;" autocomplete="off" />
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; searchExpanded = false; return ;">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
             </div>
-        </mat-sidenav>
+          </div>
+          <div fxFlex>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon aria-label="search icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>Account</button>
+              <button mat-menu-item (click)="SignOutUser($event)">Sign out</button>
+            </mat-menu>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-toolbar>
 
-        <mat-sidenav-content style="padding-left: 10px;" slimScroll width="auto" height="100%" size="5px" alwaysVisible="true" borderRadius="1px"><!--slimScroll [options]="opts"--> 
-            <!--<router-outlet (activate)="changeOfRoutes()"></router-outlet>-->
-            <main [@fadeAnimation] ="o.isActivated ? o.activatedRoute : ''">
-              <router-outlet #o="outlet" (activate)="changeOfRoutes()"></router-outlet>
-            </main>
-            <!--<div class="main" [@animRoutes]="getPage(appOutlet)">
-              <router-outlet #appOutlet="outlet" (activate)="changeOfRoutes()"></router-outlet>
-            </div>-->
-            <!--<p *ngFor="let content of fillerContent" class="accentColorBG angular-material">{{content}}</p>-->
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+  <mat-sidenav-container class="example-sidenav-container">
+    <!--[style.marginTop.px]="mobileQuery.matches ? 56 : 0"-->
+    <mat-sidenav #snav [opened]="mobileQuery.matches ? 'false' : 'true'" class="mat-elevation-z20"
+                 [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" style="overflow: hidden;">
+      <!--style="overflow: hidden;"-->
+      <div slimScroll width="auto" height="100%" size="5px" alwaysVisible="true" borderRadius="1px" style="min-width:200px;">
+        <!--slimScroll [options]="opts2"-->
+        <!--<mat-nav-list>
+            <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
+            <nav-menu></nav-menu>
+        </mat-nav-list>-->
+        <!--<mat-nav-list>
+            <a mat-list-item routerLink=".">somete</a>
+            <nav-menu></nav-menu>
+        </mat-nav-list>-->
+        <nav-menu></nav-menu>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <!--slimScroll [options]="opts"-->
+      <!--<router-outlet (activate)="changeOfRoutes()"></router-outlet>-->
+      <div style="padding-left: 10px;" slimScroll width="auto" height="100%" size="5px" alwaysVisible="true" borderRadius="1px">
+        <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+          <router-outlet #o="outlet" (activate)="changeOfRoutes()"></router-outlet>
+        </main>
+
+      </div>
+      <!--<div class="main" [@animRoutes]="getPage(appOutlet)">
+        <router-outlet #appOutlet="outlet" (activate)="changeOfRoutes()"></router-outlet>
+      </div>-->
+      <!--<p *ngFor="let content of fillerContent" class="accentColorBG angular-material">{{content}}</p>-->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

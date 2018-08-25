@@ -28,7 +28,7 @@ export class AccountServicce extends CoreService {
   }
 
   Login(userData: any) {
-    return this.doPostCall('Account/Login2', userData);
+    return this.doPostCall('Account/Login', userData);
   }
 
   Logout() {

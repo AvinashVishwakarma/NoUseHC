@@ -20,3 +20,5 @@
     "allowSyntheticDefaultImports": true
   }
 }
+//“noImplicitAny”: true.
+//In the tsconfig.json file of your app you can set a flag which tells the compiler to throw errors when types are not explicitly provided.

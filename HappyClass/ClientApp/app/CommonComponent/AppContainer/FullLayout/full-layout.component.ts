@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 // import 'rxjs/add/observable/fromEvent';
 import { fadeAnimation, leftAnimation, listItemAnimation, animateList } from '../../../appAnimation/fadeAnimation';
+import { AppSetting } from '../../../AppSetting';
 
 @Component({
   selector: 'app',
@@ -92,7 +93,7 @@ export class FullLayoutComponent { //implements OnInit {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, renderFactory: RendererFactory2, private accountService: AccountServicce
-    , @Inject('BASE_URL') private baseUrl: string, private router: Router, private cookie: CookieService) {
+    , private router: Router, private cookie: CookieService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -115,7 +116,7 @@ export class FullLayoutComponent { //implements OnInit {
       },
       error => {
         console.log(error);
-        location.href = this.baseUrl;
+        location.href = AppSetting.baseURL;
       }
       );
 

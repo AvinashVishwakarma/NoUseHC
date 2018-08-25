@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from "@angular/common/http";
 import { CoreService } from "./core.service";
+import { AppSetting } from "../AppSetting";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -26,7 +27,7 @@ export class FileUploadService extends CoreService {
         for (let file of files)
             formData.append(file.name, file);
 
-        const uploadReq = new HttpRequest('POST', this.baseUrl + `Account/UploadFile2`, formData, {
+      const uploadReq = new HttpRequest('POST', AppSetting.baseURL + `Account/UploadFile2`, formData, {
             reportProgress: true,
         });
 
