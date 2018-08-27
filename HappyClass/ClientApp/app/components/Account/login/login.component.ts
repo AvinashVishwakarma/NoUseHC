@@ -29,6 +29,19 @@ export class LoginComponent implements OnInit {
     //this.http = Http;
   }
 
+  onChange(event: any) {
+    //ITERATE SELECTED FILES
+    debugger;
+    let file: FileList;
+    if (event.type == "drop") {
+      file = event.dataTransfer.files;
+      //console.log("type: drop");
+    } else {
+      file = event.target.files || event.srcElement.files;
+      //console.log("type: change");
+    }
+  }
+
   ngOnInit() {
     this.form = this.fb.group({     // {5}
       Email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],

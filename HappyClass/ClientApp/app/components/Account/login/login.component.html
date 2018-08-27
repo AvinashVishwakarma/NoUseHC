@@ -51,6 +51,13 @@
                     <div fxLayoutAlign="end center">
                         <button mat-raised-button color="primary" [disabled]="!form.valid && form.dirty" type="submit">Login</button>
                     </div>
+
+                    <div>
+                      <!--<label for="sel2" mat-raised-button color="primary" class="btn btn-primary btn-sm afu-select-btn">Select File<span>s</span></label>-->
+                      <label for="sel2" class="mat-raised-button mat-primary">Select File<span>s</span></label>
+                      <input type="file" id="sel2" style="display: none" (change)="onChange($event)" title="Select file"
+                             name="files[]" [accept]="'.jpg,.png,.pdf,.docx,.gif,.jpeg'" [attr.multiple]="true ? '' : null" />
+                    </div>
                 </div>
             </form>
         </mat-card-content>

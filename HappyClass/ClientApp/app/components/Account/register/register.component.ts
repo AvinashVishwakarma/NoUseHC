@@ -106,7 +106,7 @@ export class RegisterComponent extends CoreComponent implements OnInit  {
       }, 3000);
     }
     else if (data == 7) {
-      let progressDialog = this.dh.showProgressMessage("hello ahsjkdhaskjd hasjkhdas jds ahdjkh kh kh kjhjh kjh k, alsdalshd klad dhakdajdklasd jasldkas jdaskldjas lasjd salkdjsa kdlsaj aslkj aslkdas dlkasd sakldjas dlkas jdad somehing is going on!");
+      let progressDialog = this.dh.showProgressMessage("hello somehing is going on!");
       setTimeout(() => {
         this.dh.closeDialog(progressDialog);
       }, 10000);
