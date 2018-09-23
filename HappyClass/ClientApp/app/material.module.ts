@@ -15,6 +15,7 @@ import {
   MatProgressSpinnerModule,
   MatSnackBarModule,
   MatExpansionModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -54,6 +55,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatExpansionModule,
+    MatTooltipModule,
     BrowserAnimationsModule
   ]
 })

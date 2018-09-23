@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /HappyClass/wwwroot/distNG/out-tsc
 /HappyClass/wwwroot/distNG
+/HappyClassBin/netcoreapp2.0

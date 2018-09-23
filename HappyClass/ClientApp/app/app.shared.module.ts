@@ -31,6 +31,7 @@ import { DialogHelper, NotifyDialog, ProgressDialog } from './CommonComponent/Wi
 import { FileUploadService } from './Services/FileUploadService';
 import { AlphabetsOnlyDirective } from './Directives/Common/AlphabetOnlyDirective';
 import { ResetPasswordComponent } from './components/Account/resetPassword/resetPassword.component';
+import { FileUploader } from './components/fileUploader/fileUploader.component';
 
 const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
 
@@ -51,6 +52,7 @@ const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
     NotifyDialog,
     ProgressDialog,
     SlimScroll,
+    FileUploader
   ],
   imports: [
     CommonModule,

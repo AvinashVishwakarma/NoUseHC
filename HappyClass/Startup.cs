@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HappyClasses.Filters;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace HappyClass
 {
@@ -30,6 +32,7 @@ namespace HappyClass
     public void ConfigureServices(IServiceCollection services)
     {
       services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+      services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "fileUploadRoot")));
 
       //services.AddIdentity<ApplicationUser, ApplicationRole>()
       //    .AddDefaultTokenProviders()

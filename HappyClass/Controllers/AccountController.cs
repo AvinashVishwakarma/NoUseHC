@@ -20,21 +20,43 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.FileProviders;
+using HelperObject;
 
 namespace HappyClasses.Controllers
 {
   public class AccountController : HCBaseController
   {
-    private AccountManager accountManager;
-    public AccountController(IConfiguration configuration)
+    private readonly IFileProvider fileProvider;
+    private readonly AccountManager accountManager;
+    public AccountController(IConfiguration configuration, IFileProvider fileProvider)
         : base(configuration)
     {
-      accountManager = new AccountManager();
+      this.accountManager = new AccountManager();
+      this.fileProvider = fileProvider;
     }
 
     private IActionResult Index()
     {
       return View();
+    }
+    
+    [HttpPost]
+    //[AllowAnonymous]
+    public async Task<IActionResult> fileUpload(List<IFormFile> files)
+    {
+      if (files == null || files[0].Length == 0)
+        return Content("file not selected");
+
+      var path = Path.Combine(
+                  Directory.GetCurrentDirectory(), "fileUploadRoot",
+                  FileHelper.GenerateFileName(files[0].FileName));
+
+      using (var stream = new FileStream(path, FileMode.Create))
+      {
+        await files[0].CopyToAsync(stream);
+      }
+      return Json(true);
     }
 
     [AllowAnonymous]
@@ -241,18 +263,5 @@ namespace HappyClasses.Controllers
       else
         return Json(false);
     }
-  }
-
-  public interface IFormFile
-  {
-    string ContentType { get; }
-    string ContentDisposition { get; }
-    IHeaderDictionary Headers { get; }
-    long Length { get; }
-    string Name { get; }
-    string FileName { get; }
-    Stream OpenReadStream();
-    void CopyTo(Stream target);
-    Task CopyToAsync(Stream target);
   }
 }

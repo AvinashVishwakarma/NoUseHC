@@ -54,9 +54,10 @@
 
                     <div>
                       <!--<label for="sel2" mat-raised-button color="primary" class="btn btn-primary btn-sm afu-select-btn">Select File<span>s</span></label>-->
-                      <label for="sel2" class="mat-raised-button mat-primary">Select File<span>s</span></label>
+                      <!--<label for="sel2" class="mat-raised-button mat-primary">Select File<span>s</span></label>
                       <input type="file" id="sel2" style="display: none" (change)="onChange($event)" title="Select file"
-                             name="files[]" [accept]="'.jpg,.png,.pdf,.docx,.gif,.jpeg'" [attr.multiple]="true ? '' : null" />
+                             name="files[]" [accept]="'.jpg,.png,.pdf,.docx,.gif,.jpeg'" [attr.multiple]="true ? '' : null" />-->
+                      <file-uploader [config]="fileUploadConfig" (ApiResponse)="DocUpload($event)"></file-uploader>
                     </div>
                 </div>
             </form>
