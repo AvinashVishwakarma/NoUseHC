@@ -32,6 +32,7 @@ import { FileUploadService } from './Services/FileUploadService';
 import { AlphabetsOnlyDirective } from './Directives/Common/AlphabetOnlyDirective';
 import { ResetPasswordComponent } from './components/Account/resetPassword/resetPassword.component';
 import { FileUploader } from './components/fileUploader/fileUploader.component';
+import { AccountDetailComponent } from './components/Account/accountDetail/account-detail.component';
 
 const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
 
@@ -52,7 +53,8 @@ const AppContainers = [FullLayoutComponent, SimpleLayoutComponent];
     NotifyDialog,
     ProgressDialog,
     SlimScroll,
-    FileUploader
+    FileUploader,
+    AccountDetailComponent
   ],
   imports: [
     CommonModule,

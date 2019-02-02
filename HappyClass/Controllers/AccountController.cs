@@ -48,13 +48,16 @@ namespace HappyClasses.Controllers
       if (files == null || files[0].Length == 0)
         return Content("file not selected");
 
-      var path = Path.Combine(
-                  Directory.GetCurrentDirectory(), "fileUploadRoot",
-                  FileHelper.GenerateFileName(files[0].FileName));
-
-      using (var stream = new FileStream(path, FileMode.Create))
+      foreach(var file in files)
       {
-        await files[0].CopyToAsync(stream);
+        var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "fileUploadRoot",
+                    FileHelper.GenerateFileName(file.FileName));
+
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+          await files[0].CopyToAsync(stream);
+        }
       }
       return Json(true);
     }
@@ -82,8 +85,7 @@ namespace HappyClasses.Controllers
         objUM.Email = model.Email;
         objUM.MobileNumber = model.MobileNumber;
         objUM.UserType = UserType.Registered;
-        AccountManager objAM = new AccountManager();
-        result = objAM.RegisterUser(objUM);
+        result = accountManager.RegisterUser(objUM);
         if (result > 0)
         {
           LoginViewModel loginModel = new LoginViewModel();
@@ -99,7 +101,29 @@ namespace HappyClasses.Controllers
       }
       return Json(responseMessage);
     }
-    
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult GetUserDetailByUserId(int userId)
+    {
+      ResponseMessage responseMessage = new ResponseMessage();
+      UserDetail userDetail = new UserDetail();
+      if (ModelState.IsValid)
+      {
+        userDetail = accountManager.GetUserByUserId(userId);
+        if (userDetail.UserId > 0)
+        {
+          responseMessage.Result = userDetail;
+        }
+        else
+        {
+          responseMessage.Errormessage = new string[] { Constants.Error_NO_USER_FOUND }.ToList();
+        }
+      }
+      return Json(responseMessage);
+    }
+
     private ActionResult RedirectToLocal(string returnUrl)
     {
       if (Url.IsLocalUrl(returnUrl))
@@ -143,7 +167,7 @@ namespace HappyClasses.Controllers
         //ipAddress = Request.ServerVariables["REMOTE_ADDR"];
         ipAddress = Request.HttpContext.Connection.LocalIpAddress.ToString();
       }
-      var userModel = objAM.ValidateUser(model.Email, model.Password, ipAddress, DateTime.Now);
+      var userModel = (UserModel)objAM.ValidateUser(model.Email, model.Password, ipAddress, DateTime.Now);
       if (userModel != null && userModel.UserId > 0)
       {
         if (await SetClaimsAndSignIn(userModel, ipAddress))
@@ -258,7 +282,7 @@ namespace HappyClasses.Controllers
     {
       if (User.Identity.IsAuthenticated)
       {
-        return Json(User.Identity.IsAuthenticated);
+        return Json(accountManager.GetUserByUserId(GetUserId()));
       }
       else
         return Json(false);

@@ -1,10 +1,17 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { DialogHelper } from '../../CommonComponent/Widget/CommonHelper';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'file-uploader',
   templateUrl: './fileUploader.component.html'
 })
 export class FileUploader implements OnInit, OnChanges {
+
+  constructor(private dh: DialogHelper) {
+
+  }
+
   @Input()
   config: FileUploadConfig;
   @Output()
@@ -81,6 +88,10 @@ export class FileUploader implements OnInit, OnChanges {
     this.uploadBtn = false;
   }
 
+  public removeFileAt(index: number) {
+    this.selectedFiles.splice(index, 1);
+  }
+
   onChange(event: any) {
     this.resetFileUpload();
     //ITERATE SELECTED FILES
@@ -145,6 +156,8 @@ export class FileUploader implements OnInit, OnChanges {
       }
     }
 
+    console.log(this.selectedFiles);
+
     //let xhr = new XMLHttpRequest();
     //xhr.onreadystatechange = evnt => {
     //  this.ApiResponse.emit(evnt);
@@ -172,6 +185,7 @@ export class FileUploader implements OnInit, OnChanges {
   }
 
   showSelectedFile() {
+    debugger;
     if (this.selectedFiles.length > 0)
       return true;
     else
@@ -200,6 +214,8 @@ export class FileUploader implements OnInit, OnChanges {
   }
 
   uploadFiles() {
+    let uploadProgressDialog = this.dh.showProgressMessage("selected files are uploading..");
+
     let i: any;
     this.progressBarShow = true;
     this.uploadClick = false;
@@ -248,7 +264,7 @@ export class FileUploader implements OnInit, OnChanges {
       if (evnt.lengthComputable) {
         this.percentComplete = Math.round((evnt.loaded / evnt.total) * 100);
       }
-      //console.log("Progress..."/*+this.percentComplete+" %"*/);
+      console.log("Progress..."/*+this.percentComplete+" %"*/);
     };
 
     xhr.onload = evnt => {
@@ -262,6 +278,9 @@ export class FileUploader implements OnInit, OnChanges {
         this.uploadMsgText = "Successfully Uploaded !";
         this.uploadMsgClass = "text-success lead";
         //console.log(this.uploadMsgText + " " + this.selectedFiles.length + " file");
+        this.dh.closeDialog(uploadProgressDialog);
+        this.dh.success("File(s) uploaded successfully.")
+        this.resetFileUpload();
       }
     };
 

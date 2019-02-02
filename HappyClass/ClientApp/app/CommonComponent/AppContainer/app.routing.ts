@@ -8,6 +8,7 @@ import { CounterComponent } from '../../components/counter/counter.component';
 import { FetchDataComponent } from '../../components/fetchdata/fetchdata.component';
 import { RegisterComponent } from '../../components/Account/register/register.component';
 import { ResetPasswordComponent } from '../../components/Account/resetPassword/resetPassword.component';
+import { AccountDetailComponent } from '../../components/Account/accountDetail/account-detail.component';
 
 // Import Containers
 
@@ -45,21 +46,22 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path: '',
-        component: FullLayoutComponent,
-        data: {
-            title: 'Home'
-        },
-        children: [
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'app-login', component: LoginComponent },
-            { path: 'reset', component: ResetPasswordComponent },
-            { path: '**', redirectTo: 'home' }
-        ]
-    }
+  {
+    path: '',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Home'
+    },
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'counter', component: CounterComponent },
+      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'app-login', component: LoginComponent },
+      { path: 'reset', component: ResetPasswordComponent },
+      { path: 'myaccount', component: AccountDetailComponent },
+      { path: '**', redirectTo: 'home' }
+    ]
+  }
 ];
 
 @NgModule({

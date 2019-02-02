@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     , @Inject('AntiForgeryToken') public anti: string, private accountService: AccountServicce) {
     //this.http = Http;
     this.fileUploadConfig = new FileUploadConfig();
+    this.fileUploadConfig.multiple = true;
     this.fileUploadConfig.maxSize = 1;
     this.fileUploadConfig.uploadAPI = {
       url: "http://localhost:64632/account/fileUpload",

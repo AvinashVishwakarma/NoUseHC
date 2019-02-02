@@ -13,7 +13,7 @@
   <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button mat-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <mat-toolbar color="primary">
-      <mat-toolbar-row>
+      <mat-toolbar-row style="padding-right:2px;">
         <div fxLayout="row" fxFlex="100%" fxLayoutAlign="start center">
           <div fxFlex fxHide.xs>
             <span>Matrial line</span>
@@ -37,12 +37,15 @@
               </mat-form-field>
             </div>
           </div>
+          <div fxFlex="2">
+          </div>
           <div fxFlex>
             <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon aria-label="search icon">more_vert</mat-icon>
+              <!--<mat-icon aria-label="search icon">account_circle</mat-icon>-->
+              <mat-icon aria-label="search icon">account_circle</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>Account</button>
+              <button mat-menu-item [routerLink]="['/myaccount']">Account</button>
               <button mat-menu-item (click)="SignOutUser($event)">Sign out</button>
             </mat-menu>
           </div>

@@ -1,0 +1,69 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" style="height:100%;">
+  <h3>Create your account</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="full-width" style="margin-top:4em;" (keydown.enter)="$event.preventDefault()">
+    <div fxLayout="row wrap">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Firstname" maxlength="100" formControlName="firstname" required AlphabetsOnly="true">
+        <mat-error>
+          <control-messages [control]="form.controls.firstname"></control-messages>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Lastname" maxlength="100" formControlName="lastname" AlphabetsOnly="true">
+        <mat-error>
+          <control-messages [control]="form.controls.lastname"></control-messages>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="email" maxlength="100" formControlName="email" required>
+        <mat-error>
+          <control-messages [control]="form.controls.email"></control-messages>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Mobile number" maxlength="10" NumbersOnly="true" formControlName="MobileNumber" required>
+        <mat-error>
+          <control-messages [control]="form.controls.MobileNumber"></control-messages>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap">
+      <mat-form-field fxFlex>
+        <input matInput type="password" placeholder="Password"
+               formControlName="password" required>
+        <mat-error>
+          <control-messages [control]="form.controls.password"></control-messages>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput type="password" placeholder="Confirm Password"
+               formControlName="confirmPassword" required>
+        <mat-error>
+          <control-messages [control]="form.controls.confirmPassword"></control-messages>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="min-height:20px;margin:1em 1em;">
+      <mat-error *ngIf="ErrorMessages && ErrorMessages.length > 0">
+        {{ErrorMessages[0]}}
+      </mat-error>
+      <mat-error *ngIf="showPasswordReset"><span>Email already registered <a href="#">Click Here</a> to reset password </span>  </mat-error>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxLayoutAlign="start center">
+        <!--<button mat-button color="primary" (click)="router.navigate(['/account/login'])">
+          Sign in instead
+        </button>-->
+      </div>
+      <div fxFlex>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="end center">
+        <!--[disabled]="!form.valid && form.dirty"-->
+        <button mat-raised-button color="primary" type="submit">Update</button>
+      </div>
+    </div>
+  </form>
+
+</div>

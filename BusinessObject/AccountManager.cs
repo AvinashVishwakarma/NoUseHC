@@ -8,7 +8,7 @@ namespace BusinessObject
 {
     public class AccountManager
     {
-        public UserModel ValidateUser(string username, string password, string IPAddress, DateTime loginTime)
+        public UserDetail ValidateUser(string username, string password, string IPAddress, DateTime loginTime)
         {
             AccountDAO obj = new AccountDAO();
             return obj.ValidateUser(username, password, IPAddress, loginTime);
@@ -19,7 +19,13 @@ namespace BusinessObject
             AccountDAO obj = new AccountDAO();
             return obj.RegisterUser(objUserModel);
         }
-        
+
+        public UserDetail GetUserByUserId(int userId)
+        {
+            AccountDAO obj = new AccountDAO();
+            return obj.GetUserByUserId(userId);
+        }
+
         public int ChangeUserPassword(long userId, string oldPassword, string newPassword)
         {
             AccountDAO obj = new AccountDAO();

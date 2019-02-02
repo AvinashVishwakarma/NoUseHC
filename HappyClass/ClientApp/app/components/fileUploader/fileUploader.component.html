@@ -1,21 +1,25 @@
 <div>
   <label for="file{{id}}" class="mat-raised-button mat-primary" matTooltip="click to select file">Select File<span *ngIf="multiple">s</span></label>
   <input type="file" id="file{{id}}" style="display: none" (change)="onChange($event)" title="Select file"
-         name="files[]" [accept]="allowedFormats()" [attr.multiple]="true ? '' : null" />
-  <div *ngIf="!multiple && showSelectedFile()">
-    <label color="accent">{{getSelectedFileDetail()}}</label>
-    <button mat-icon-button mat-button color="warn" matTooltip="click to remove it" (click)="resetFileUpload()">
+         name="files[]" [accept]="allowedFormats()" [attr.multiple]="multiple ? '' : null" />
+  <div *ngFor="let file of selectedFiles; let i = index">
+    <label color="accent">{{file.name}}</label>
+    <button mat-icon-button mat-button color="warn" matTooltip="click to remove it" (click)="removeFileAt(i)">
       <i class="material-icons">
         highlight_off
       </i>
     </button>
   </div>
   <div>
-    <button mat-raised-button color="warn" matTooltip="click to upload selected files" (click)="uploadFiles()">
+    <button mat-raised-button color="warn" matTooltip="click to upload selected files" [disabled]="selectedFiles.length == 0" (click)="uploadFiles()">
       Upload
     </button>
   </div>
   <!--<label *ngIf="multiple && showError()">{{getErrorMessages()}}</label>-->
-  <label *ngIf="!multiple && showError()" [style.color]="'red'">{{getErrorMessage()}}</label>
+  <div *ngFor="let fError of notAllowedList; let i = index">
+    <label [style.color]="'red'">
+      {{ i+1 + '. File: ' + fError.fileName + ' - Error: '+ fError.errorMessage}}
+    </label>
+  </div>
   <!--<label *ngIf="multiple && showError()">{{getErrorMessages()}}</label>-->
 </div>
